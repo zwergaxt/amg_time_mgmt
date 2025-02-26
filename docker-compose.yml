@@ -1,0 +1,24 @@
+services:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=amg
+      - POSTGRES_PASSWORD=postgres_password
+    volumes:
+      - "/home/zwergaxt/devel/amg_time_env/docker/data/:/var/lib/postgresql/data"
+  
+  backend:
+    depends_on:
+      - database
+    image: amg-time-backend
+    build: ./amg_time_prj
+    ports:
+      - 8000:8000
+  
+  front:
+    depends_on: 
+      - backend
+    image: amg-time-frontend
+    build: ./amg_time_front
+    ports:
+      - 3000:3000
