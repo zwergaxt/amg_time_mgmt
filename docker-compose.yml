@@ -11,7 +11,7 @@ services:
     depends_on:
       - database
     image: amg-time-backend
-    build: ./amg_time_prj
+    build: ./amg_time
     ports:
       - 8000:8000
   
