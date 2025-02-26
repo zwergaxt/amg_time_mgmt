@@ -5,7 +5,7 @@ services:
       - POSTGRES_USER=amg
       - POSTGRES_PASSWORD=postgres_password
     volumes:
-      - "/home/zwergaxt/devel/amg_time_env/docker/data/:/var/lib/postgresql/data"
+      - "/home/zwergaxt/devel/amg_time_mgmt/data/:/var/lib/postgresql/data"
   
   backend:
     depends_on:
