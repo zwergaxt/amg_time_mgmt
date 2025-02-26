@@ -28,6 +28,11 @@ npm start
 Предварительно для развертывания системы через Docker требуется установить необходимые пакеты:
 - docker
 - docker-compose  
+В файле docker-compose изменить путь до volume с данными PostgreSQL.  
+```
+    volumes:
+      - "/home/zwergaxt/devel/amg_time_env/docker/data/:/var/lib/postgresql/data"
+```
 Затем достаточно выполнить:
 ```
 docker compose -f docker-compose.yml up -d --build
