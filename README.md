@@ -38,3 +38,11 @@ npm start
 docker compose -f docker-compose.yml up -d --build
 ```
 Docker построит и запустит контейнеры. Сервисы системы будут доступны на тех же портах, что и при "стандартном" развертывании.
+
+Далее нужно создать аккаунт администратора django.
+Для этого нужно выполнить:
+```
+    docker exec -it <id контейнера с django> sh
+    после подключения к контейнеру
+    python manage.py createsuperuser
+```
