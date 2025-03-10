@@ -88,6 +88,15 @@ function App() {
 										})}
 										form='brick' />
 									<Button
+										label={"Доп. соглашения"}
+										width="full"
+										view={nav == 7 ? "primary" : "ghost"}
+										onClick={() => setNav(4)}
+										className={cnMixSpace({
+											mB: '2xs',
+										})}
+										form='brick' />										
+									<Button
 										label={"Акты"}
 										width="full"
 										view={nav == 4 ? "primary" : "ghost"}
