@@ -37,9 +37,11 @@ const AppFormActs = (props) => {
     const submitDataEdit = async (e) => {
         e.preventDefault();
         // eslint-disable-next-line
+        const project = item['project_id'] ? item['project_id'] : item['project']['id']
+
         const data = {
             act_number: item['act_number'],
-            project: item['project']['id'],
+            project: project,
             price: item['price'],
             description: item['description'],
             date: item['date'],

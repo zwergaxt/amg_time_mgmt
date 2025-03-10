@@ -74,7 +74,7 @@ class ProjectSelectSerializer(serializers.ModelSerializer):
             "description",
             "is_archived",
         )
-        depth = 1
+        depth = 2
 
 class UserSerializer(serializers.ModelSerializer):    
     class Meta:

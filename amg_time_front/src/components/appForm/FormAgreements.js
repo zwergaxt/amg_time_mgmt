@@ -37,13 +37,17 @@ const AppFormAgreements = (props) => {
     const submitDataEdit = async (e) => {
         e.preventDefault();
         // eslint-disable-next-line
+        const project = item['project_id'] ? item['project_id'] : item['project']['id']
+
         const data = {
             agr_number: item['agr_number'],
-            project: item['project']['id'],
+            project: project,
             price: item['price'],
             description: item['description'],
         }
 
+        console.log(data);
+        
         const result = await axios.put(API_URL + item.pk, data, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(() => {
                 props.resetState()
