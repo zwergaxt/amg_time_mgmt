@@ -102,6 +102,7 @@ class AgreementsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Agreement
         fields = ("pk", "agr_number", "project", "price", "description")
+        depth = 1
 
 
 class ContractorsSerializer(serializers.ModelSerializer):
