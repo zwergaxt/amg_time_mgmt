@@ -121,7 +121,7 @@ const HomeAgreements = (props) => {
                 <Col xs="12" className="list-content">
                     <Card shadow={false} >
                         <div>
-                            <AppListAgreements data={dataSorted()} resetState={refetchData} newItem={false} />
+                            <AppListAgreements data={data} resetState={refetchData} newItem={false} />
                         </div>
                     </Card>
                 </Col>

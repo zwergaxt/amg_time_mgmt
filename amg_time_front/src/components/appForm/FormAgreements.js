@@ -38,7 +38,7 @@ const AppFormAgreements = (props) => {
         e.preventDefault();
         // eslint-disable-next-line
         const data = {
-            act_number: item['agr_number'],
+            agr_number: item['agr_number'],
             project: item['project']['id'],
             price: item['price'],
             description: item['description'],
@@ -54,7 +54,7 @@ const AppFormAgreements = (props) => {
     const submitDataAdd = async (e) => {
         e.preventDefault();
         const data = {
-            act_number: item['agr_number'],
+            agr_number: item['agr_number'],
             project: item['project_id'],
             price: item['price'],
             description: item['description'],

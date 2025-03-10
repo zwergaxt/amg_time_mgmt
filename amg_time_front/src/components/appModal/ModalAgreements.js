@@ -47,7 +47,7 @@ const AppModalAgreements = (props) => {
                         })}>
                         {props.create ? "Добавить доп.соглашение" : "Редактировать доп.соглашение"}
                     </Text>
-                    <AppFormActs
+                    <AppFormAgreements
                         item={props.item ? props.item : []}
                         resetState={props.resetState}
                         toggle={toggle}

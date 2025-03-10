@@ -91,7 +91,7 @@ function App() {
 										label={"Доп. соглашения"}
 										width="full"
 										view={nav == 7 ? "primary" : "ghost"}
-										onClick={() => setNav(4)}
+										onClick={() => setNav(7)}
 										className={cnMixSpace({
 											mB: '2xs',
 										})}
