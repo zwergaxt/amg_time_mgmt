@@ -99,11 +99,23 @@ class EmployeesSerializer(serializers.ModelSerializer):
 
 
 class AgreementsSerializer(serializers.ModelSerializer):
+    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+
     class Meta:
         model = Agreement
         fields = ("pk", "agr_number", "project", "price", "description")
         depth = 1
+    
+    def create(self, validated_data):
+        return Act.objects.create(**validated_data)
+    
+class AgreementsListSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = Agreement
+        fields = ("pk", "agr_number", "project", "price", "description")
+        depth = 1
+    
 
 class ContractorsSerializer(serializers.ModelSerializer):
     project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())

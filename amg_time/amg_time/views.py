@@ -198,7 +198,7 @@ def agreements_list(request):
         else:
             data = Agreement.objects.all()
 
-        serializer = AgreementsSerializer(data, context={"request": request}, many=True)
+        serializer = AgreementsListSerializer(data, context={"request": request}, many=True)
         return Response(serializer.data)
     elif request.method == "POST":
         print("post")
