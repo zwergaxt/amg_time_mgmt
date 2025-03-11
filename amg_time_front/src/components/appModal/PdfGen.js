@@ -7,9 +7,9 @@ import { useRef } from 'react';
 import { useReactToPrint } from "react-to-print";
 
 const PdfCreate = (props) => {
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(props.toggle)
 
-    var button = <Button onClick={() => { toggle() }} view="secondary" size="s"> Печать </Button>;
+    // var button = <Button onClick={() => { toggle() }} view="secondary" size="s"> Печать </Button>;
 
     const toggle = () => {
         setVisible(!visible)
@@ -23,7 +23,7 @@ const PdfCreate = (props) => {
 
     return (
         <Fragment >
-            {button}
+            {/* {button} */}
             <Modal isOpen={visible} toggle={toggle} position="center" style={{ minWidth: "100%", minHeight: "100%" }} >
                 <div ref={componentRef}>
                     <img src="" alt="" />
@@ -101,7 +101,7 @@ const PdfCreate = (props) => {
                         </div>
                     </div>
                 </div>
-                <Button onClick={() => handlePrint()}>Печать формы</Button>
+                <Button onClick={() => {handlePrint(); toggle(); props.toggleParent()}}>Печать формы</Button>
             </Modal>
         </Fragment>
     )

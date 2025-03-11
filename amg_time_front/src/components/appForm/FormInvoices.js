@@ -14,6 +14,11 @@ const AppFormInvoices = (props) => {
     const [employee, setEmployee] = useState({})
     const [select, setSelect] = useState(props.newItem ? item.project : props.item.project.id);
     const [selectEmployee, setSelectEmployee] = useState(props.newItem ? item.employee : props.item.employee.id);
+    const [renderModal, setRenderModal] = useState(false)
+
+    const toggleRenderModal = () => {
+        setRenderModal(true)
+    }
 
     const onChange = (e) => {
         const newState = item
@@ -123,6 +128,8 @@ const AppFormInvoices = (props) => {
         return <PdfCreate />
     }
 
+    if (renderModal) return <PdfCreate invoice={props.item} toggle={true} toggleParent={props.toggle}/>
+
     return (
         <Form onSubmit={props.newItem ? submitDataAdd : submitDataEdit}>
             <FormGroup>
@@ -163,7 +170,7 @@ const AppFormInvoices = (props) => {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Button color="primary" type="submit" > Сохранить </Button>
                 <Button onClick={props.toggle} color="secondary" outline> Отмена </Button>
-                <PdfCreate invoice={props.item} />
+                <Button onClick={() => {toggleRenderModal()}}> Печать </Button>
             </div>
         </Form >
     )
