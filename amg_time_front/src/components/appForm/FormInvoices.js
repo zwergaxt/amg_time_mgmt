@@ -56,12 +56,14 @@ const AppFormInvoices = (props) => {
 
     const submitDataEdit = async (e) => {
         e.preventDefault();
+        const project = item['project'] ? item['project'] : item['project']['id']
+
 
         // eslint-disable-next-line
         const data = {
             employee: item['employee']['id'],
             date: item['date'],
-            project: item['project']['id']
+            project: project
         }
 
         const result = await axios.put(API_URL + item.pk, data, { headers: { 'Content-Type': 'multipart/form-data' } })
