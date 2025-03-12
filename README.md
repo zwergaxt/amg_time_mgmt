@@ -1,3 +1,9 @@
+## Release Notes
+### v1.0.0
+- В docker-compose.yml путь к Volume для database заменен на envvar AMG_VOL_PATH
+- Добавлен раздел "Доп. соглашения"
+- Добавлены отделы ОВиК, ИТР, БИМ для сотрудников
+
 ## Развертывание решения
 Развертывание решения может быть выполнено 2-мя способами:
 - через "стандартный" путь с написанием unit'ов Linux
@@ -28,10 +34,9 @@ npm start
 Предварительно для развертывания системы через Docker требуется установить необходимые пакеты:
 - docker
 - docker-compose  
-В файле docker-compose изменить путь до volume с данными PostgreSQL.  
+Добавить переменную среды AMG_VOL_PATH, например:  
 ```
-    volumes:
-      - "/home/zwergaxt/devel/amg_time_env/docker/data/:/var/lib/postgresql/data"
+    export AMG_VOL_PATH="<путь до директории с данными БД>"
 ```
 Затем достаточно выполнить:
 ```
