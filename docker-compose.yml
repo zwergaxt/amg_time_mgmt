@@ -5,7 +5,8 @@ services:
       - POSTGRES_USER=amg
       - POSTGRES_PASSWORD=postgres_password
     volumes:
-      - "/home/zwergaxt/devel/amg_time_mgmt/data/:/var/lib/postgresql/data"
+      - "${AMG_VOL_PATH}:/var/lib/postgresql/data"
+    restart: unless-stopped
   
   backend:
     depends_on:
@@ -14,6 +15,7 @@ services:
     build: ./amg_time
     ports:
       - 8000:8000
+    restart: unless-stopped
   
   front:
     depends_on: 
@@ -22,3 +24,4 @@ services:
     build: ./amg_time_front
     ports:
       - 3000:3000
+    restart: unless-stopped
