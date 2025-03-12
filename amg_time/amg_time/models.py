@@ -7,7 +7,13 @@ from django.contrib.auth.models import User
 
 class Employee(models.Model):
 
-    DEPARTMENTS = {"OV": "ОВ", "VK": "ВК", "SS": "СС", "El": "ЭОМ"}
+    DEPARTMENTS = {"OV": "ОВ", 
+                   "OViK": "ОВиК", 
+                   "VK": "ВК", 
+                   "SS": "СС", 
+                   "El": "ЭОМ", 
+                   "ITR": "ИТР", 
+                   "BIM": "БИМ"}
     ROLES = {"User": "Пользователь", "Admin": "Админ"}
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
