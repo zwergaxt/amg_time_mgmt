@@ -30,16 +30,16 @@ const AppListActs = (props) => {
                 ) : props.data.map(item => (
                     <tr key={item.pk}>
                         <td>
-                            <Text font="mono">{item.act_number}</Text>
+                            <Text font="mono" view={item.is_paid ? "secondary" : "primary"}>{item.act_number}</Text>
                         </td>
                         <td>
-                            <Text>{item.project.title}</Text>
+                            <Text view={item.is_paid ? "secondary" : "primary"}>{item.project.title}</Text>
                         </td>
                         <td>
-                            <Text>{item.price}</Text>
+                            <Text view={item.is_paid ? "secondary" : "primary"}>{item.price}</Text>
                         </td>
                         <td>
-                            <Text>{item.date}</Text>
+                            <Text view={item.is_paid ? "secondary" : "primary"}>{item.date}</Text>
                         </td>
                         <td>
                             <AppModalActs

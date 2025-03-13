@@ -45,6 +45,7 @@ const AppFormActs = (props) => {
             price: item['price'],
             description: item['description'],
             date: item['date'],
+            is_paid: item['is_paid'],
         }
 
         const result = await axios.put(API_URL + item.pk, data, { headers: { 'Content-Type': 'multipart/form-data' } })
@@ -62,6 +63,7 @@ const AppFormActs = (props) => {
             price: item['price'],
             description: item['description'],
             date: item['date'],
+            is_paid: item['is_paid'],
         }
 
         // eslint-disable-next-line
@@ -142,6 +144,15 @@ const AppFormActs = (props) => {
                     placeholder={today()}
                     onChange={onChange}
                     defaultValue={defaultIfEmpty(item.date)}
+                />
+            </FormGroup>
+            <FormGroup check>
+                <Label for="is_paid" style={{ "margin-right": "5px" }}> Оплачен </Label>
+                <Input
+                    type="checkbox"
+                    name="is_paid"
+                    onChange={onChange}
+                    defaultValue={defaultIfEmpty(true)}
                 />
             </FormGroup>
             <div style={{ display: "flex", justifyContent: "space-between" }}>

@@ -103,6 +103,7 @@ class Act(models.Model):
     description = models.CharField("Описание", max_length=500, null=True, blank=True)
     price = models.FloatField("Сумма", max_length=20, default=0)
     date = models.DateField("Дата", default=timezone.now())
+    is_paid = models.BooleanField("Оплачен", default=False)
 
     def __str__(self):
         return self.act_number
