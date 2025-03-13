@@ -23,7 +23,7 @@ class Employee(models.Model):
     surname_name = models.CharField("Фамилия", max_length=50, null=True)
     first_name = models.CharField("Имя", max_length=50, null=True)
     second_name = models.CharField("Отчество", max_length=50, null=True)
-    department = models.CharField("Отдел", max_length=3, choices=DEPARTMENTS, null=True)
+    department = models.CharField("Отдел", max_length=6, choices=DEPARTMENTS, null=True)
     role = models.CharField("Роль", max_length=13, choices=ROLES, null=True)
     salary = models.FloatField("Оклад", max_length=15, default=0)
     hour_revenue = models.FloatField(

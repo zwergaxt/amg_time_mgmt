@@ -140,7 +140,7 @@ class ActsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Act
-        fields = ("pk", "act_number", "project", "price", "description", "date")
+        fields = ("pk", "act_number", "project", "is_paid", "price", "description", "date")
         depth = 1
     
     def create(self, validated_data):
@@ -151,7 +151,7 @@ class ActsListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Act
-        fields = ("pk", "act_number", "project", "price", "description", "date")
+        fields = ("pk", "act_number", "is_paid", "project", "price", "description", "date")
         depth = 1
 
 
