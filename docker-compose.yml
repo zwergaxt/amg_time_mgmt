@@ -6,6 +6,8 @@ services:
       - POSTGRES_PASSWORD=postgres_password
     volumes:
       - "${AMG_VOL_PATH}:/var/lib/postgresql/data"
+    ports:
+      - 5432:5432
     restart: unless-stopped
   
   backend:
