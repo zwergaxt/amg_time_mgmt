@@ -151,8 +151,8 @@ const AppFormActs = (props) => {
                 <Input
                     type="checkbox"
                     name="is_paid"
-                    onChange={onChange}
-                    defaultValue={defaultIfEmpty(true)}
+                    onChange={e => item.is_paid=!item.is_paid}
+                    defaultChecked={item.is_paid ? true : false}
                 />
             </FormGroup>
             <div style={{ display: "flex", justifyContent: "space-between" }}>

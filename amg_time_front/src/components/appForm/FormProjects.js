@@ -151,7 +151,7 @@ const AppFormProjects = (props) => {
                     type="number"
                     name="price"
                     onChange={onChange}
-                    defaultValue={defaultIfEmpty(item.price)}
+                    defaultValue={0}
                     required
                 />
             </FormGroup>
@@ -160,8 +160,8 @@ const AppFormProjects = (props) => {
                 <Input
                     type="checkbox"
                     name="is_archived"
-                    onChange={onChange}
-                    defaultValue={defaultIfEmpty(true)}
+                    onChange={e => item.is_archived=!item.is_archived}
+                    defaultValue={defaultIfEmpty(item.is_archived)}
                 />
             </FormGroup>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
