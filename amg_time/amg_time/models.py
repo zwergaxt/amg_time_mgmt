@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from datetime import date
 
 
 class Employee(models.Model):
@@ -57,7 +58,7 @@ class Project(models.Model):
         Customer, on_delete=models.DO_NOTHING, verbose_name="Заказчик"
     )
     prj_number = models.CharField("Номер договора", max_length=200)
-    date = models.DateField("Дата", default=timezone.now())
+    date = models.DateField("Дата", default=date.today)
     price = models.FloatField("Сумма", max_length=20, default=0)
     description = models.CharField("Описание", max_length=200, null=True, blank=True)
     is_archived = models.BooleanField("Архивный", default=False)
@@ -102,7 +103,7 @@ class Act(models.Model):
     )
     description = models.CharField("Описание", max_length=500, null=True, blank=True)
     price = models.FloatField("Сумма", max_length=20, default=0)
-    date = models.DateField("Дата", default=timezone.now())
+    date = models.DateField("Дата", default=date.today)
     is_paid = models.BooleanField("Оплачен", default=False)
 
     def __str__(self):
@@ -122,7 +123,7 @@ class Invoice(models.Model):
         editable=True,
         null=True,
     )
-    date = models.DateField("Дата", default=timezone.now())
+    date = models.DateField("Дата", default=date.today)
     inv_number_int = models.IntegerField(default=0)
 
     def __str__(self):
@@ -170,7 +171,7 @@ class Report(models.Model):
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, verbose_name="Проект"
     )
-    date = models.DateField("Дата", default=timezone.now())
+    date = models.DateField("Дата", default=date.today)
     time_spent = models.FloatField("Затраченное время", max_length=6)
     costs = models.FloatField("Затраты", max_length=10, editable=False, blank=True)
     description = models.CharField("Описание", max_length=200, null=True)

@@ -69,6 +69,7 @@ const AppFormReports = (props) => {
                 props.resetState()
                 props.toggle()
             })
+
     }
 
     // GET PROJECTS
@@ -97,9 +98,9 @@ const AppFormReports = (props) => {
                 <Input
                     type="text"
                     name="date"
-                    placeholder={today()}
+                    // placeholder={today()}
                     onChange={onChange}
-                    defaultValue={defaultIfEmpty(item.date)}
+                    defaultValue={today()}
                 />
             </FormGroup>
             <FormGroup>
