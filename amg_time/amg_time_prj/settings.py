@@ -154,9 +154,9 @@ SIMPLE_JWT = {
 
     'BLACKLIST_AFTER_ROTATION': True,
 
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=5),
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=30),
 
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=10),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=60),
 
 }
 
