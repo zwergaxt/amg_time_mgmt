@@ -1,4 +1,7 @@
 ## Release Notes
+### v1.1.0
+- Добавлено Metabse BI
+
 ### v1.0.0
 - В docker-compose.yml путь к Volume для database заменен на envvar AMG_VOL_PATH
 - Добавлен раздел "Доп. соглашения"
@@ -61,3 +64,11 @@ Docker построит и запустит контейнеры. Сервисы
     python manage.py createsuperuser
 ```
 !!! Для нового суперпользователя нужно обязательно создать Employee в админ панели <srv_name>:8000/admin!!!
+
+#### Запуск Metabase
+Для запуска Metabase нужно разместить папку bi_data из архива по любому пути в системе и задать переменную
+```
+    AMG_VOL_PATH_BI
+```
+Равную абсолютному пути к директории bi_data
+Либо явно прописать пути в docker-compose.yml
