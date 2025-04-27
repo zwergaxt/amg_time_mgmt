@@ -82,7 +82,7 @@ Docker построит и запустит контейнеры. Сервисы
 git clone <repo link>
 ```
 2. Создать директорию data для данных системы
-3. Изменить в docker-compose.yaml путь к директории
+3. Изменить в docker-compose.yaml путь к директории с данными системы  
 В сервисе database:
 ```
     volumes:
@@ -95,7 +95,7 @@ git clone <repo link>
       - "/opt/amg_time/data:/var/lib/postgresql/data"
 ```
 4. Разархивировать архив bi_data.tar
-5. Изменить в docker-compose.yaml путь к директории
+5. Изменить в docker-compose.yaml путь к директории с данными BI   
 В сервисе bi_database:
 ```
     volumes:
