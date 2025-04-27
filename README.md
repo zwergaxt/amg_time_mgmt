@@ -88,7 +88,12 @@ git clone <repo link>
     volumes:
       - "${AMG_VOL_PATH}:/var/lib/postgresql/data"
 ```
-    "${AMG_VOL_PATH}" - зменить на путь к директории data (или задать в ОС переменную)  
+    "${AMG_VOL_PATH}" - зменить на путь к директории data (или задать в ОС переменную) 
+Например:
+```
+    volumes:
+      - "/opt/amg_time/data:/var/lib/postgresql/data"
+```
 4. Разархивировать архив bi_data.tar
 5. Изменить в docker-compose.yaml путь к директории
 В сервисе bi_database:
@@ -97,6 +102,20 @@ git clone <repo link>
       - "${AMG_VOL_PATH_BI}:/var/lib/postgresql/data"
 ```
     "${AMG_VOL_PATH_BI}" - заменить на путь к директории bi_data (или задать в ОС переменную)  
-5. Выполнить docker compose up -d --build
+Например:
+```
+    volumes:
+      - "/opt/amg_time/data:/var/lib/postgresql/bi_data"
+```
+5. Выполнить docker compose up -d --build в папке решения
+6. Проверить состояние контейнеров 
+```
+docker ps -a
+```
+6a. Если есть контейнеры со статусом Exited*, то выполнить
+```
+docker logs <id контейнера>
+```
+и провести анализ ошибки
 
 (*) - при обновлении достаточно выполнить git pull в директории решения
