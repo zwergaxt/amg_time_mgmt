@@ -75,3 +75,28 @@ Docker построит и запустит контейнеры. Сервисы
 
 В самой системе аналитики необходимо в настройках указать верного пользователя и его пароль для БД
 "Шестеренка" Settings в правом верхнем углу -> Admin Settings -> Databases -> amg_db -> Edit connection details
+
+### Пример процесса установки/обновления решения
+1. Клонировать репозиторий (*) 
+```
+git clone <repo link>
+```
+2. Создать директорию data для данных системы
+3. Изменить в docker-compose.yaml путь к директории
+В сервисе database:
+```
+    volumes:
+      - "${AMG_VOL_PATH}:/var/lib/postgresql/data"
+```
+    "${AMG_VOL_PATH}" - зменить на путь к директории data (или задать в ОС переменную)  
+4. Разархивировать архив bi_data.tar
+5. Изменить в docker-compose.yaml путь к директории
+В сервисе bi_database:
+```
+    volumes:
+      - "${AMG_VOL_PATH_BI}:/var/lib/postgresql/data"
+```
+    "${AMG_VOL_PATH_BI}" - заменить на путь к директории bi_data (или задать в ОС переменную)  
+5. Выполнить docker compose up -d --build
+
+(*) - при обновлении достаточно выполнить git pull в директории решения
