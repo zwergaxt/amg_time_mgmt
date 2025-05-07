@@ -3,8 +3,10 @@ USER root
 
 WORKDIR /usr/src/front
 
-COPY . .
+COPY ./package.json .
 
 RUN npm i
+
+COPY . .
 
 ENTRYPOINT ["npm", "run", "start"]
