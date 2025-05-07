@@ -20,20 +20,9 @@ function App() {
 	const API_URL = API_URL_I + "token/refresh"
 
 	const handleLogOut = (e) => {
-
-		axios.post(API_URL, {
-			refresh: localStorage.getItem('refreshToken'),
-		})
-			.then(response => {
-				if (response.status != 200) return
-				localStorage.removeItem('accessToken');
-				localStorage.removeItem('refreshToken');
-
-				window.location.reload()
-			})
-			.catch(error => console.error(error))
-
-
+		localStorage.removeItem('accessToken');
+		localStorage.removeItem('refreshToken');
+		window.location.reload()
 	}
 
 
@@ -95,7 +84,7 @@ function App() {
 										className={cnMixSpace({
 											mB: '2xs',
 										})}
-										form='brick' />										
+										form='brick' />
 									<Button
 										label={"Акты"}
 										width="full"
