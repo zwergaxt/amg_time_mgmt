@@ -38,26 +38,7 @@ const HomeReports = (props) => {
             if (error.response.status === 401 && !config._retry) {
                 // we use this flag to avoid retrying indefinitely if
                 // getting a refresh token fails for any reason
-                config._retry = true;
-                axios.post(API_URL_I + "token/refresh", { refresh: localStorage.getitem('refreshToken') })
-
-                    .then(response => {
-
-                        const newAccessToken = response.data.access;
-
-                        const newRefreshToken = response.data.refresh;
-
-                        localStorage.setItem('accessToken', newAccessToken)
-
-                        localStorage.setItem('refreshToken', newRefreshToken)
-
-                    })
-
-                    .catch(error => {
-
-                        console.error('Ошибка при обновлении токена:', error);
-
-                    })
+                window.location.reload()
 
                 return axios(config);
             }
