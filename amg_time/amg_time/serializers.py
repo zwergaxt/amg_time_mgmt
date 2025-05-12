@@ -107,7 +107,7 @@ class AgreementsSerializer(serializers.ModelSerializer):
         depth = 1
     
     def create(self, validated_data):
-        return Act.objects.create(**validated_data)
+        return Agreement.objects.create(**validated_data)
     
 class AgreementsListSerializer(serializers.ModelSerializer):
 
