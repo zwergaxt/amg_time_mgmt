@@ -25,3 +25,4 @@ pg_service.conf
 *.sqlite3
 *.pyc
 .vscode/
+metabase.jar
