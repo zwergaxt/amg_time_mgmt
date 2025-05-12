@@ -37,14 +37,14 @@ services:
   metabase:
     depends_on:
       - backend
-    image: metabase/metabase:latest
+    image: metabase/metabase:v0.54.5.x
     environment:
-      - MB_DB_TYPE = postgres
-      - MB_DB_DBNAME = metabaseappdb
-      - MB_DB_PORT = 5433
-      - MB_DB_USER = metabase
-      - MB_DB_PASS = mtb_password1
-      - MB_DB_HOST = bi_database
+      - MB_DB_TYPE=postgres
+      - MB_DB_DBNAME=metabaseappdb
+      - MB_DB_PORT=5432
+      - MB_DB_USER=metabase
+      - MB_DB_PASS=mtb_password1
+      - MB_DB_HOST=172.21.0.4
     ports: 
       - 8080:3000
     restart: unless-stopped
