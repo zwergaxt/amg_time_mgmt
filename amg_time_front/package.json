@@ -16,7 +16,8 @@
     "react-scripts": "5.0.1",
     "react-to-print": "^3.0.5",
     "react-use-websocket": "^4.11.1",
-    "reactstrap": "^9.2.3"
+    "reactstrap": "^9.2.3",
+    "react-select": "^5.10.1"
   },
   "scripts": {
     "start": "BROWSER=none react-scripts start",

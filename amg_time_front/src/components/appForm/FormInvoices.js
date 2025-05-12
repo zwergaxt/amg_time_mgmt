@@ -3,6 +3,7 @@ import { Button, Col, Form, FormGroup, Row, Input, Label } from "reactstrap";
 import axios from "axios";
 import { API_URL_I } from "../../index";
 import HomeInvoicesDesc from "../appHome/HomeInvoicesDesc";
+import Select from 'react-select';
 import PdfCreate from "../appModal/PdfGen";
 
 const AppFormInvoices = (props) => {
@@ -27,9 +28,9 @@ const AppFormInvoices = (props) => {
         // setDesc(newStateDesc)
         setItem(newState)
 
-        setSelect((prev) => {
-            e.target.name = e.target.value
-        })
+        // setSelect((prev) => {
+        //     e.target.name = e.target.value
+        // })
 
         setSelectEmployee((prev) => {
             e.target.name = e.target.value
@@ -39,6 +40,16 @@ const AppFormInvoices = (props) => {
         //     e.target.name = e.target.value
         // })
     }
+
+    const onChangeSelect = (e) => {
+        item['project'] = e.value
+        setSelect(item['project'])
+    }
+
+    // const onChangeSelectEmployee = (e) => {
+    //     item['employee']['id'] = e.value
+    //     setSelect(item['employee']['id'])
+    // }
 
     useEffect(() => {
         // getDesc()
@@ -98,7 +109,7 @@ const AppFormInvoices = (props) => {
     const arr = []
 
     for (let i = 0; i < projects.length; i++) {
-        arr.push(<option value={projects[i].pk} key={projects[i].pk}> {projects[i].title} </option>)
+        arr.push({value: projects[i].pk, label: projects[i].title})
     }
 
     // GET Employees
@@ -158,15 +169,14 @@ const AppFormInvoices = (props) => {
             </FormGroup>
             <FormGroup>
                 <Label for="project">Проект</Label>
-                <Input
-                    type="select"
-                    name="project"
-                    onChange={onChange}
-                    value={select}
+                <Select
+                    // name="project_id"
+                    onChange={onChangeSelect}
+                    options={arr}
+                    value={arr.find(prj => prj.value === select)}
+                    placeholder="Выберите проект"
                 >
-                    <option value={0}>Выберите проект</option>
-                    {arr}
-                </Input>
+                </Select>
             </FormGroup>
             {props.newItem ? "" : <HomeInvoicesDesc inv_pk={item.pk} setDescSet={setDescSet} submitDataAddP={submitDataAdd} />}
             <div style={{ display: "flex", justifyContent: "space-between" }}>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Form, FormGroup, FormText, Input, Label } from "reactstrap";
 import axios from "axios";
+import Select from 'react-select';
 import { API_URL_I } from "../../index";
 
 const AppFormActs = (props) => {
@@ -13,11 +14,11 @@ const AppFormActs = (props) => {
         const newState = item
         newState[e.target.name] = e.target.value
         setItem(newState)
+    }
 
-        setSelect((prev) => {
-            e.target.name = e.target.value
-
-        })
+    const onChangeSelect = (e) => {
+        item['project_id'] = e.value
+        setSelect(item['project_id'])
     }
 
     useEffect(() => {
@@ -82,7 +83,7 @@ const AppFormActs = (props) => {
     const arr = []
 
     for (let i = 0; i < projects.length; i++) {
-        arr.push(<option value={projects[i].pk} key={projects[i].pk}> {projects[i].title} </option>)
+        arr.push({value: projects[i].pk, label: projects[i].title})
     }
 
     // Get today date for placeholder
@@ -107,15 +108,14 @@ const AppFormActs = (props) => {
             </FormGroup>
             <FormGroup>
                 <Label for="project_id">Проект</Label>
-                <Input
-                    type="select"
-                    name="project_id"
-                    onChange={onChange}
-                    value={select}
+                <Select
+                    // name="project_id"
+                    onChange={onChangeSelect}
+                    options={arr}
+                    value={arr.find(prj => prj.value === select)}
+                    placeholder="Выберите проект"
                 >
-                    <option value={0}>Выберите проект</option>
-                    {arr}
-                </Input>
+                </Select>
             </FormGroup>
             <FormGroup>
                 <Label for="description">Описание/Состав акта</Label>
