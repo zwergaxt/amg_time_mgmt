@@ -26,3 +26,4 @@ pg_service.conf
 *.pyc
 .vscode/
 metabase.jar
+metabase.db.mv.db
