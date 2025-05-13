@@ -4,6 +4,7 @@
 - Рефактор Dockerfile 
 - Изменен тип выпающего списка на список с поиском
 - Добавлены дашборды для руководителей отделов и сметчика
+- Добавлен log shipper Vector (описание в "Инструкция системного администратора")
 
 ### v1.1.0
 - Добавлено Metabse BI
@@ -87,7 +88,7 @@ git clone <repo link>
 Например:
 ```
     volumes:
-      - "/opt/amg_time/data:/var/lib/postgresql/bi_data"
+      - "/opt/amg_time/bi_data:/var/lib/postgresql/bi_data"
 ```
 6. Указать в **amg_time_front/src/index.js** перменную API_URL равную IP сервера с решением
 7. Выполнить docker compose up -d --build в папке решения
