@@ -22,11 +22,39 @@ sources:
       - amg_time_mgmt-front
 
 sinks:
-  general:
+  backend_s:
     type: console
     inputs:
       - backend
     encoding:
-      codec: text
+      codec: logfmt
+      pretty: "true"
+      only_fields:
+        - container_name
+        - message
+    target: stdout
+
+  database_s:
+    type: console
+    inputs:
+      - database
+    encoding:
+      codec: logfmt
+      pretty: "true"
+      only_fields:
+        - container_name
+        - message
+    target: stdout
+
+  frontend_s:
+    type: console
+    inputs:
+      - frontend
+    encoding:
+      codec: logfmt
+      pretty: "true"
+      only_fields:
+        - container_name
+        - message
     target: stdout
       
