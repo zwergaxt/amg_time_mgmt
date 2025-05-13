@@ -65,11 +65,22 @@ services:
     networks:
       amg_net:
         ipv4_address: 172.21.0.4
+  
+  logging:
+    image: timberio/vector:0.46.1-alpine
+    restart: unless-stopped
+    # environment:
+    #   - DOCKER_HOST="/var/run/docker.sock"
+    volumes:
+      - "./docker_configs/:/etc/vector"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - amg_net
 
 networks:
   amg_net:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.21.0.0/29
+        - subnet: 172.21.0.0/28
           gateway: 172.21.0.1

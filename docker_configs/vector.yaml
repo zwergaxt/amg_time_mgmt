@@ -1,0 +1,32 @@
+log_schema:
+  host_key: .host
+  message_key: .message
+  metadata_key: .metadata
+  source_type_key: .source_type
+  timestamp_key: .timestamp
+
+sources: 
+  backend:
+    type: docker_logs
+    include_containers:
+      - amg_time_mgmt-backend
+  
+  database:
+    type: docker_logs
+    include_containers:
+      - amg_time_mgmt-database
+
+  frontend:
+    type: docker_logs
+    include_containers:
+      - amg_time_mgmt-front
+
+sinks:
+  general:
+    type: console
+    inputs:
+      - backend
+    encoding:
+      codec: text
+    target: stdout
+      
