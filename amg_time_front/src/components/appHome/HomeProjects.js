@@ -38,6 +38,9 @@ const HomeProjects = (props) => {
             if (error.response.status === 401 && !config._retry) {
                 // we use this flag to avoid retrying indefinitely if
                 // getting a refresh token fails for any reason
+                localStorage.removeItem('accessToken');
+		        localStorage.removeItem('refreshToken');
+
                 window.location.reload()
 
                 return axios(config);
