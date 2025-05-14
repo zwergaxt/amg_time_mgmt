@@ -95,6 +95,15 @@ function App() {
 										})}
 										form='brick' />
 									<Button
+										label={"Акты Подрядчики"}
+										width="full"
+										view={nav == 8 ? "primary" : "ghost"}
+										onClick={() => setNav(8)}
+										className={cnMixSpace({
+											mB: '2xs',
+										})}
+										form='brick' />
+									<Button
 										label={"Накладные"}
 										width="full"
 										view={nav == 5 ? "primary" : "ghost"}

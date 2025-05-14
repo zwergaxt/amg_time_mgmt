@@ -6,6 +6,7 @@ import HomeActs from "../appHome/HomeActs";
 import HomeInvoices from "../appHome/HomeInvoices";
 import { Informer } from "@consta/uikit/Informer";
 import HomeAgreements from "../appHome/HomeAgreements";
+import HomeActsContr from "../appHome/HomeActsContr";
 
 const Navigation = ({nav}) => {
     if (nav === 0) {
@@ -28,6 +29,8 @@ const Navigation = ({nav}) => {
         return <HomeReports />
     } else if (nav === 7) {
         return <HomeAgreements />
+    } else if (nav === 8) {
+        return <HomeActsContr />
     }
 }
 export default Navigation;

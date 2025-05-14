@@ -154,6 +154,26 @@ class ActsListSerializer(serializers.ModelSerializer):
         fields = ("pk", "act_number", "is_paid", "project", "price", "description", "date")
         depth = 1
 
+class ActsContrSerializer(serializers.ModelSerializer):
+    contractor = serializers.PrimaryKeyRelatedField(queryset=Contractor.objects.all())
+    date = serializers.DateField(format="%Y-%d-%m", input_formats=["%d.%m.%Y"], required=False)
+
+    class Meta:
+        model = ActContractor
+        fields = ("pk", "act_number", "contractor", "is_paid", "price", "description", "date")
+        depth = 1
+    
+    def create(self, validated_data):
+        return ActContractor.objects.create(**validated_data)
+
+class ActsContrListSerializer(serializers.ModelSerializer):
+    date = serializers.DateField(format='%d.%m.%Y')
+
+    class Meta:
+        model = ActContractor
+        fields = ("pk", "act_number", "is_paid", "contractor", "price", "description", "date")
+        depth = 1
+
 
 class InvoiceDescSerializer(serializers.ModelSerializer):
     invoice = serializers.PrimaryKeyRelatedField(queryset=Invoice.objects.all())

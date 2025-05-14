@@ -9,17 +9,17 @@ sources:
   backend:
     type: docker_logs
     include_containers:
-      - amg_time_mgmt-backend
+      - amg_time_m-backend
   
   database:
     type: docker_logs
     include_containers:
-      - amg_time_mgmt-database
+      - amg_time_m-database
 
   frontend:
     type: docker_logs
     include_containers:
-      - amg_time_mgmt-front
+      - amg_time_m-front
 
 sinks:
   backend_s:

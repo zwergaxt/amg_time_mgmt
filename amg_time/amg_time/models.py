@@ -108,6 +108,19 @@ class Act(models.Model):
 
     def __str__(self):
         return self.act_number
+    
+class ActContractor(models.Model):
+    act_number = models.CharField("Номер акта", max_length=200, null=True)
+    contractor = models.ForeignKey(
+        Contractor, on_delete=models.CASCADE, verbose_name="Подрядчик"
+    )
+    description = models.CharField("Описание", max_length=500, null=True, blank=True)
+    price = models.FloatField("Сумма", max_length=20, default=0)
+    date = models.DateField("Дата", default=date.today)
+    is_paid = models.BooleanField("Оплачен", default=False)
+
+    def __str__(self):
+        return self.act_number
 
 
 class Invoice(models.Model):

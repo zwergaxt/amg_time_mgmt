@@ -47,6 +47,8 @@ urlpatterns = [
     re_path(r"^api/contractors_d/(\d+)$", views.contractors_detail),
     re_path(r"^api/acts/(?:(?P<len>\w+)/?)?$", views.acts_list),
     re_path(r"^api/acts_d/(\d+)$", views.acts_detail),
+    re_path(r"^api/acts_contr/(?:(?P<len>\w+)/?)?$", views.actscontr_list),
+    re_path(r"^api/acts_contr_d/(\d+)$", views.actscontr_detail),
     re_path(r"^api/invoices/(?:(?P<len>\w+)/?)?$", views.invoices_list),
     re_path(r"^api/invoices_d/(\d+)$", views.invoices_detail),
     re_path(r"^api/invoices_desc/$", views.invoicedesc_list),

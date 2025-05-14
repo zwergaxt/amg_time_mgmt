@@ -316,6 +316,48 @@ def acts_detail(request, pk):
     elif request.method == "DELETE":
         entity.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+@api_view(["GET", "POST"])
+@authentication_classes([JWTAuthentication])
+@permission_classes([AdminOnly])
+def actscontr_list(request):
+    if request.method == "GET":
+        len = request.query_params.get('len')
+        if (len != None):
+            data = ActContractor.objects.all().order_by('-id')[:int(len)]
+        else:
+            data = ActContractor.objects.all()
+
+        serializer = ActsContrListSerializer(data, context={"request": request}, many=True)
+        return Response(serializer.data)
+    elif request.method == "POST":
+        print("post")
+        serializer = ActsContrSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["PUT", "DELETE"])
+@authentication_classes([JWTAuthentication])
+@permission_classes([AdminOnly])
+def actscontr_detail(request, pk):
+    try:
+        entity = ActContractor.objects.get(pk=pk)
+    except entity.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == "PUT":
+        serializer = ActsContrSerializer(
+            entity, data=request.data, context={"request": request}
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == "DELETE":
+        entity.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(["GET", "POST"])
