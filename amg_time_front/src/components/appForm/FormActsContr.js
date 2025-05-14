@@ -9,6 +9,7 @@ const AppFormActsContr = (props) => {
     const [item, setItem] = useState({})
     const [projects, setProjects] = useState({})
     const [select, setSelect] = useState(props.newItem ? item.contractor : props.item.contractor.id);
+    const [check, setCheck] = useState(props.newItem ? item.is_paid : props.is_paid)
 
     const onChange = (e) => {
         const newState = item
@@ -19,6 +20,11 @@ const AppFormActsContr = (props) => {
     const onChangeSelect = (e) => {
         item['contractor_id'] = e.value
         setSelect(item['contractor_id'])
+    }
+
+    const onChangeCheck = (e) => {
+        item['is_paid'] = !item['is_paid']
+        setCheck(item['is_paid'])
     }
 
     useEffect(() => {
@@ -151,7 +157,7 @@ const AppFormActsContr = (props) => {
                 <Input
                     type="checkbox"
                     name="is_paid"
-                    onChange={e => item.is_paid=!item.is_paid}
+                    onChange={onChangeCheck}
                     checked = {item.is_paid ? true : false}
                     // defaultChecked={item.is_paid ? true : false}
                 />

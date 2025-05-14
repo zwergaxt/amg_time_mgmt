@@ -8,6 +8,7 @@ const AppFormProjects = (props) => {
     const [item, setItem] = useState({})
     const [customers, setCustomers] = useState({})
     const [select, setSelect] = useState(props.newItem ? item.cust : props.item.cust.id);
+    const [check, setCheck] = useState(props.newItem ? item.is_archived : props.is_archived)
 
     const onChange = (e) => {
         const newState = item
@@ -17,6 +18,11 @@ const AppFormProjects = (props) => {
         setSelect((prev) => {
             e.target.name = e.target.value
         })
+    }
+
+    const onChangeCheck = (e) => {
+        item['is_archived'] = !item['is_archived']
+        setCheck(item['is_archived'])
     }
 
     useEffect(() => {
@@ -160,8 +166,8 @@ const AppFormProjects = (props) => {
                 <Input
                     type="checkbox"
                     name="is_archived"
-                    onChange={e => item.is_archived=!item.is_archived}
-                    defaultValue={defaultIfEmpty(item.is_archived)}
+                    onChange={onChangeCheck}
+                    checked={item['is_archived'] ? true : false}
                 />
             </FormGroup>
             <div style={{ display: "flex", justifyContent: "space-between" }}>

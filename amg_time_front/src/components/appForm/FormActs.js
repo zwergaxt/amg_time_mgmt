@@ -9,6 +9,7 @@ const AppFormActs = (props) => {
     const [item, setItem] = useState({})
     const [projects, setProjects] = useState({})
     const [select, setSelect] = useState(props.newItem ? item.project : props.item.project.id);
+    const [check, setCheck] = useState(props.newItem ? item.is_paid : props.is_paid)
 
     const onChange = (e) => {
         const newState = item
@@ -19,6 +20,11 @@ const AppFormActs = (props) => {
     const onChangeSelect = (e) => {
         item['project_id'] = e.value
         setSelect(item['project_id'])
+    }
+
+    const onChangeCheck = (e) => {
+        item['is_paid'] = !item['is_paid']
+        setCheck(item['is_paid'])
     }
 
     useEffect(() => {
@@ -151,8 +157,8 @@ const AppFormActs = (props) => {
                 <Input
                     type="checkbox"
                     name="is_paid"
-                    onChange={e => item.is_paid=!item.is_paid}
-                    defaultChecked={item.is_paid ? true : false}
+                    onChange={onChangeCheck}
+                    checked={item.is_paid ? true : false}
                 />
             </FormGroup>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
