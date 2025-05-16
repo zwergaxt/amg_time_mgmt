@@ -1,7 +1,30 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Button, Form, FormGroup, FormText, Input, Label } from "reactstrap";
+import { Tabs } from "@consta/uikit/Tabs";
 import axios from "axios";
 import { API_URL_I } from "../../index";
+import HomeActs from "../appHome/HomeActs";
+import HomeContractors from "../appHome/HomeContractors";
+import HomeAgreements from "../appHome/HomeAgreements";
+import HomeInvoices from "../appHome/HomeInvoices";
+
+const tabItems = [
+    {
+        name: "Проект"
+    },
+    {
+        name: "Акты"
+    },
+    {
+        name: "Подрядчики"
+    },
+    {
+        name: "Доп.Соглашения"
+    },
+    {
+        name: "Накладные"
+    }
+]
 
 const AppFormProjects = (props) => {
     const API_URL = props.newItem ? API_URL_I + "projects/" : API_URL_I + "projects_d/"
@@ -9,6 +32,12 @@ const AppFormProjects = (props) => {
     const [customers, setCustomers] = useState({})
     const [select, setSelect] = useState(props.newItem ? item.cust : props.item.cust.id);
     const [check, setCheck] = useState(props.newItem ? item.is_archived : props.is_archived)
+    const [tab, setTab] = useState(tabItems[0].name)
+
+    console.log(item);
+    
+
+    const search = "?project_id="+item.pk
 
     const onChange = (e) => {
         const newState = item
@@ -25,6 +54,119 @@ const AppFormProjects = (props) => {
         setCheck(item['is_archived'])
     }
 
+    const handleTabChange = (tab) => {
+        if (tab === "Проект") {
+            return (
+                <Form onSubmit={props.newItem ? submitDataAdd : submitDataEdit}>
+                <FormGroup>
+                    <Label for="title">Наименование</Label>
+                    <Input
+                        type="text"
+                        name="title"
+                        placeholder="Ленина 42"
+                        onChange={onChange}
+                        defaultValue={defaultIfEmpty(item.title)}
+                        required
+                    />
+                    <FormText>Краткое наименование проекта</FormText>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="cust_id">Заказчик</Label>
+                    <Input
+                        type="select"
+                        name="cust_id"
+                        onChange={onChange}
+                        value={select}
+                    >
+                        <option value={0}>Выберите заказчика</option>
+                        {arr}
+                    </Input>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="prj_number">Номер проекта</Label>
+                    <Input
+                        type="text"
+                        name="prj_number"
+                        onChange={onChange}
+                        defaultValue={defaultIfEmpty(item.prj_number)}
+                    />
+                    <FormText>Номер по договору</FormText>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="date">Дата</Label>
+                    <Input
+                        type="text"
+                        name="date"
+                        placeholder={today()}
+                        onChange={onChange}
+                        defaultValue={defaultIfEmpty(item.date)}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="description">Описание</Label>
+                    <Input
+                        type="text"
+                        name="description"
+                        onChange={onChange}
+                        defaultValue={defaultIfEmpty(item.description)}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="price">Сумма</Label>
+                    <Input
+                        type="number"
+                        name="price"
+                        onChange={onChange}
+                        defaultValue={defaultIfEmpty(item.price)}
+                        required
+                    />
+                </FormGroup>
+                <FormGroup check>
+                    <Label for="is_archived" style={{ "margin-right": "5px" }}> Архив </Label>
+                    <Input
+                        type="checkbox"
+                        name="is_archived"
+                        onChange={onChangeCheck}
+                        checked={item['is_archived'] ? true : false}
+                    />
+                </FormGroup>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <Button color="primary" type="submit" > Сохранить </Button>
+                    <Button onClick={props.toggle} color="secondary" outline> Отмена </Button>
+                </div>
+                </Form>
+            ) 
+        } else if (tab === "Акты") {
+            return (
+                <Fragment>
+                    <HomeActs search={search} />
+                    <Button onClick={props.toggle} color="secondary" outline> Закрыть </Button>
+                </Fragment>
+            )
+        } else if (tab === "Подрядчики") {
+            return (
+                <Fragment>
+                    <HomeContractors search={search} />
+                    <Button onClick={props.toggle} color="secondary" outline> Закрыть </Button>
+                </Fragment>
+            )
+        } else if (tab === "Доп.Соглашения") {
+            return (
+                <Fragment>
+                    <HomeAgreements search={search} />
+                    <Button onClick={props.toggle} color="secondary" outline> Закрыть </Button>
+                </Fragment>
+            )
+        } else if (tab === "Накладные") {
+            return (
+                <Fragment>
+                    <HomeInvoices search={search} />
+                    <Button onClick={props.toggle} color="secondary" outline> Закрыть </Button>
+                </Fragment>
+            )
+        }
+    }
+
     useEffect(() => {
         getCustomers()
         if (!props.newItem) {
@@ -33,7 +175,7 @@ const AppFormProjects = (props) => {
         // eslint-disable-next-line
     }, [props.item])
 
-
+    
 
     const defaultIfEmpty = value => {
         return value === "" ? "" : value;
@@ -96,85 +238,26 @@ const AppFormProjects = (props) => {
         return date
     }
 
+    console.log(tab)
+
     return (
-        <Form onSubmit={props.newItem ? submitDataAdd : submitDataEdit}>
-            <FormGroup>
-                <Label for="title">Наименование</Label>
-                <Input
-                    type="text"
-                    name="title"
-                    placeholder="Ленина 42"
-                    onChange={onChange}
-                    defaultValue={defaultIfEmpty(item.title)}
-                    required
-                />
-                <FormText>Краткое наименование проекта</FormText>
-            </FormGroup>
-            <FormGroup>
-                <Label for="cust_id">Заказчик</Label>
-                <Input
-                    type="select"
-                    name="cust_id"
-                    onChange={onChange}
-                    value={select}
-                >
-                    <option value={0}>Выберите заказчика</option>
-                    {arr}
-                </Input>
-            </FormGroup>
-            <FormGroup>
-                <Label for="prj_number">Номер проекта</Label>
-                <Input
-                    type="text"
-                    name="prj_number"
-                    onChange={onChange}
-                    defaultValue={defaultIfEmpty(item.prj_number)}
-                />
-                <FormText>Номер по договору</FormText>
-            </FormGroup>
-            <FormGroup>
-                <Label for="date">Дата</Label>
-                <Input
-                    type="text"
-                    name="date"
-                    placeholder={today()}
-                    onChange={onChange}
-                    defaultValue={defaultIfEmpty(item.date)}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="description">Описание</Label>
-                <Input
-                    type="text"
-                    name="description"
-                    onChange={onChange}
-                    defaultValue={defaultIfEmpty(item.description)}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="price">Сумма</Label>
-                <Input
-                    type="number"
-                    name="price"
-                    onChange={onChange}
-                    defaultValue={0}
-                    required
-                />
-            </FormGroup>
-            <FormGroup check>
-                <Label for="is_archived" style={{ "margin-right": "5px" }}> Архив </Label>
-                <Input
-                    type="checkbox"
-                    name="is_archived"
-                    onChange={onChangeCheck}
-                    checked={item['is_archived'] ? true : false}
-                />
-            </FormGroup>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Button color="primary" type="submit" > Сохранить </Button>
-                <Button onClick={props.toggle} color="secondary" outline> Отмена </Button>
-            </div>
-        </Form>
+        <Fragment>
+        <Tabs
+            value={tab}
+            size="m"
+            view="bordered"
+            linePosition="bottom"
+            fitMode="scroll"
+            onChange={(tab) => setTab(tab.name)}
+            items={tabItems}
+            getItemLabel={(tab) => tab.name}
+            style={{
+                position:"sticky"
+            }}
+        />
+        {handleTabChange(tab)}
+        
+        </Fragment>
     )
 }
 

@@ -33,7 +33,12 @@ const AppModal = (props) => {
     return (
         <Fragment>
             {button}
-            <Modal isOpen={visible} toggle={toggle} position="center" style={{ "width": "150em" }}>
+            <Modal 
+                isOpen={visible} 
+                toggle={toggle} 
+                position="center" 
+                style={{ "width": "150em" }}
+            >
                 <Card
                     verticalSpace="xl"
                     horizontalSpace="4xl">

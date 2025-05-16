@@ -13,7 +13,11 @@ import axios from "axios";
 const HomeInvoices = (props) => {
     const [len, setLen] = useState("?len=10")
 
-    const API_URL = API_URL_I + "invoices/" + len
+    var API_URL = API_URL_I + "invoices/" + len
+
+    if (props.search !== undefined) {
+        API_URL = API_URL_I + "invoices_gen" + props.search
+    }    
 
 
     axios.interceptors.request.use(
