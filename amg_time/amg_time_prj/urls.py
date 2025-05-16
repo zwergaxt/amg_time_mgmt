@@ -55,4 +55,9 @@ urlpatterns = [
     re_path(r"^api/invoices_desc/(\d+)$", views.invoicedesc_detail),
     re_path(r"^api/reports/(?:(?P<len>\w+)/?)?$", views.reports_list),
     re_path(r"^api/reports_d/(\d+)$", views.reports_detail),
+    # generic filtered views
+    path(r"api/contractors_gen/", views.ContractorsList.as_view()),
+    path(r"api/agreements_gen/", views.AgreementsList.as_view()),
+    path(r"api/invoices_gen/", views.InvoicesList.as_view()),
+    path(r"api/acts_gen/", views.ActsList.as_view()),
 ]

@@ -2,7 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.request import Request
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import generics
+from rest_framework.decorators import (
+    api_view,
+    permission_classes,
+    authentication_classes,
+)
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_access_policy import AccessPolicy
@@ -11,55 +17,59 @@ from datetime import datetime
 from .serializers import *
 from .models import *
 
+
 class AdminOnly(AccessPolicy):
     statements = [
         {
             "action": "*",
             "principal": "*",
             "effect": "allow",
-            "condition": ["user_must_be:Admin"]
+            "condition": ["user_must_be:Admin"],
         },
         {
             "action": "*",
             "principal": "*",
             "effect": "deny",
-            "condition": ["user_must_be:User"]
+            "condition": ["user_must_be:User"],
         },
     ]
 
     def user_must_be(self, request, view, action, field: str) -> bool:
-            user = User.objects.get(username=request.user)
-            return user.employee.role == field
-    
+        user = User.objects.get(username=request.user)
+        return user.employee.role == field
+
+
 class AllUser(AccessPolicy):
     statements = [
         {
             "action": "*",
             "principal": "*",
             "effect": "allow",
-            "condition": ["user_must_be:Admin"]
+            "condition": ["user_must_be:Admin"],
         },
         {
             "action": "*",
             "principal": "*",
             "effect": "allow",
-            "condition": ["user_must_be:User"]
+            "condition": ["user_must_be:User"],
         },
     ]
 
     def user_must_be(self, request, view, action, field: str) -> bool:
-            user = User.objects.get(username=request.user)
-            return user.employee.role == field
+        user = User.objects.get(username=request.user)
+        return user.employee.role == field
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def current_user(request):
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
 
+
 #  DELETE LATER
-@api_view(['GET'])
+@api_view(["GET"])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def users_list(request):
@@ -69,26 +79,30 @@ def users_list(request):
         serializer = UserSerializer(data, context={"request": request}, many=True)
         return Response(serializer.data)
 
+
 @api_view(["GET", "POST"])
 @authentication_classes([JWTAuthentication])
 @permission_classes([AdminOnly])
 def projects_list(request):
     if request.method == "GET":
-        len = request.query_params.get('len')
-        if (len != None):
-            data = Project.objects.all().order_by('-id')[:int(len)]
+        len = request.query_params.get("len")
+        if len != None:
+            data = Project.objects.all().order_by("-id")[: int(len)]
         else:
             data = Project.objects.all()
 
-        serializer = ProjectListSerializer(data, context={"request": request}, many=True)
+        serializer = ProjectListSerializer(
+            data, context={"request": request}, many=True
+        )
         return Response(serializer.data)
     elif request.method == "POST":
         print("post >>>", request)
         serializer = ProjectSerializer(data=request.data)
-        if serializer.is_valid():            
+        if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(["PUT", "DELETE"])
 @authentication_classes([JWTAuthentication])
@@ -102,7 +116,7 @@ def projects_detail(request, pk):
         serializer = ProjectSerializer(
             project, data=request.data, context={"request": request}
         )
-        print(f"DATA>>> {serializer}")        
+        print(f"DATA>>> {serializer}")
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
@@ -110,6 +124,7 @@ def projects_detail(request, pk):
     elif request.method == "DELETE":
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(["GET", "POST"])
 @authentication_classes([JWTAuthentication])
@@ -192,13 +207,15 @@ def customers_detail(request, pk):
 @permission_classes([AdminOnly])
 def agreements_list(request):
     if request.method == "GET":
-        len = request.query_params.get('len')
-        if (len != None):
-            data = Agreement.objects.all().order_by('-id')[:int(len)]
+        len = request.query_params.get("len")
+        if len != None:
+            data = Agreement.objects.all().order_by("-id")[: int(len)]
         else:
             data = Agreement.objects.all()
 
-        serializer = AgreementsListSerializer(data, context={"request": request}, many=True)
+        serializer = AgreementsListSerializer(
+            data, context={"request": request}, many=True
+        )
         return Response(serializer.data)
     elif request.method == "POST":
         print("post")
@@ -235,9 +252,9 @@ def agreements_detail(request, pk):
 @permission_classes([AdminOnly])
 def contractor_list(request):
     if request.method == "GET":
-        len = request.query_params.get('len')
-        if (len != None):
-            data = Contractor.objects.all().order_by('-id')[:int(len)]
+        len = request.query_params.get("len")
+        if len != None:
+            data = Contractor.objects.all().order_by("-id")[: int(len)]
         else:
             data = Contractor.objects.all()
 
@@ -280,9 +297,9 @@ def contractors_detail(request, pk):
 @permission_classes([AdminOnly])
 def acts_list(request):
     if request.method == "GET":
-        len = request.query_params.get('len')
-        if (len != None):
-            data = Act.objects.all().order_by('-id')[:int(len)]
+        len = request.query_params.get("len")
+        if len != None:
+            data = Act.objects.all().order_by("-id")[: int(len)]
         else:
             data = Act.objects.all()
 
@@ -316,19 +333,22 @@ def acts_detail(request, pk):
     elif request.method == "DELETE":
         entity.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
+
 @api_view(["GET", "POST"])
 @authentication_classes([JWTAuthentication])
 @permission_classes([AdminOnly])
 def actscontr_list(request):
     if request.method == "GET":
-        len = request.query_params.get('len')
-        if (len != None):
-            data = ActContractor.objects.all().order_by('-id')[:int(len)]
+        len = request.query_params.get("len")
+        if len != None:
+            data = ActContractor.objects.all().order_by("-id")[: int(len)]
         else:
             data = ActContractor.objects.all()
 
-        serializer = ActsContrListSerializer(data, context={"request": request}, many=True)
+        serializer = ActsContrListSerializer(
+            data, context={"request": request}, many=True
+        )
         return Response(serializer.data)
     elif request.method == "POST":
         print("post")
@@ -365,13 +385,15 @@ def actscontr_detail(request, pk):
 @permission_classes([IsAuthenticated])
 def invoices_list(request):
     if request.method == "GET":
-        len = request.query_params.get('len')
-        if (len != None):
-            data = Invoice.objects.all().order_by('-id')[:int(len)]
+        len = request.query_params.get("len")
+        if len != None:
+            data = Invoice.objects.all().order_by("-id")[: int(len)]
         else:
-            data = Invoice.objects.all()        
+            data = Invoice.objects.all()
 
-        serializer = InvoicesListSerializer(data, context={"request": request}, many=True)
+        serializer = InvoicesListSerializer(
+            data, context={"request": request}, many=True
+        )
         return Response(serializer.data)
     elif request.method == "POST":
         print("post")
@@ -448,13 +470,19 @@ def invoicedesc_detail(request, pk):
 @permission_classes([AllUser])
 def reports_list(request):
     if request.method == "GET":
-        len = request.query_params.get('len')
-        if (len != None):
-            data = Report.objects.all().filter(user=request.user).order_by('-id')[:int(len)]
+        len = request.query_params.get("len")
+        if len != None:
+            data = (
+                Report.objects.all()
+                .filter(user=request.user)
+                .order_by("-id")[: int(len)]
+            )
         else:
-            data = Report.objects.all().filter(user=request.user)    
+            data = Report.objects.all().filter(user=request.user)
 
-        serializer = ReportsListSerializer(data, context={"request": request}, many=True)
+        serializer = ReportsListSerializer(
+            data, context={"request": request}, many=True
+        )
 
         return Response(serializer.data)
     elif request.method == "POST":
@@ -486,14 +514,55 @@ def reports_detail(request, pk):
     elif request.method == "DELETE":
         entity.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
+
 # Views for selectors
 @api_view(["GET"])
 @authentication_classes([JWTAuthentication])
 @permission_classes([AllUser])
 def projects_list_select(request):
-        data = Project.objects.filter(is_archived = False)
-        print(f"request {request}")
-        serializer = ProjectSelectSerializer(data, context={"request": request}, many=True)
-        return Response(serializer.data)
+    data = Project.objects.filter(is_archived=False)
+    print(f"request {request}")
+    serializer = ProjectSelectSerializer(data, context={"request": request}, many=True)
+    return Response(serializer.data)
 
+
+"""
+Generic views for filtering
+"""
+
+
+@authentication_classes([JWTAuthentication])
+@permission_classes([AdminOnly])
+class ActsList(generics.ListAPIView):
+    queryset = Act.objects.all()
+    serializer_class = ActsListSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["project_id"]
+
+
+@authentication_classes([JWTAuthentication])
+@permission_classes([AdminOnly])
+class ContractorsList(generics.ListAPIView):
+    queryset = Contractor.objects.all()
+    serializer_class = ContractorsListSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["project_id"]
+
+
+@authentication_classes([JWTAuthentication])
+@permission_classes([AdminOnly])
+class InvoicesList(generics.ListAPIView):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoicesListSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["project_id"]
+
+
+@authentication_classes([JWTAuthentication])
+@permission_classes([AdminOnly])
+class AgreementsList(generics.ListAPIView):
+    queryset = Agreement.objects.all()
+    serializer_class = AgreementsListSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["project_id"]
