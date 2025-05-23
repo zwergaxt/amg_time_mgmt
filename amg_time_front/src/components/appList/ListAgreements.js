@@ -14,7 +14,7 @@ const AppListAgreements = (props) => {
             <thead>
                 <tr>
                     <th>{textStyleHeader("Номер")}</th>
-                    <th>{textStyleHeader("Проект")}</th>
+                    <th>{textStyleHeader("Договор")}</th>
                     <th>{textStyleHeader("Сумма")}</th>
                     <th></th>
                 </tr>
@@ -32,7 +32,7 @@ const AppListAgreements = (props) => {
                             <Text font="mono">{item.agr_number}</Text>
                         </td>
                         <td>
-                            <Text>{item.project.title}</Text>
+                            <Text>{item.project.prj_number}</Text>
                         </td>
                         <td>
                             <Text>{item.price}</Text>

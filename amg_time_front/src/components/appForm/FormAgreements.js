@@ -86,7 +86,7 @@ const AppFormAgreements = (props) => {
     const arr = []
 
     for (let i = 0; i < projects.length; i++) {
-        arr.push({value: projects[i].pk, label: projects[i].title})
+        arr.push({value: projects[i].pk, label: projects[i].prj_number})
     }
 
     // Get today date for placeholder
@@ -110,7 +110,7 @@ const AppFormAgreements = (props) => {
                 />
             </FormGroup>
             <FormGroup>
-                <Label for="project_id">Проект</Label>
+                <Label for="project_id">Договор</Label>
                 <Select
                     // name="project_id"
                     onChange={onChangeSelect}

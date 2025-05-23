@@ -14,7 +14,7 @@ const AppListActs = (props) => {
             <thead>
                 <tr>
                     <th>{textStyleHeader("Номер")}</th>
-                    <th>{textStyleHeader("Проект")}</th>
+                    <th>{textStyleHeader("Договор")}</th>
                     <th>{textStyleHeader("Сумма")}</th>
                     <th>{textStyleHeader("Дата")}</th>
                     <th></th>
@@ -33,7 +33,7 @@ const AppListActs = (props) => {
                             <Text font="mono" view={item.is_paid ? "secondary" : "primary"}>{item.act_number}</Text>
                         </td>
                         <td>
-                            <Text view={item.is_paid ? "secondary" : "primary"}>{item.project.title}</Text>
+                            <Text view={item.is_paid ? "secondary" : "primary"}>{item.project.prj_number}</Text>
                         </td>
                         <td>
                             <Text view={item.is_paid ? "secondary" : "primary"}>{item.price}</Text>
