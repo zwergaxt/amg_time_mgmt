@@ -48,7 +48,7 @@ const AppModalContractors = (props) => {
                         {props.create ? "Добавить подрядчика" : "Редактировать подрядчика"}
                     </Text>
                     <AppFormContractors
-                        item={props.item ? props.item : []}
+                        item={props.item ? props.item : {}}
                         resetState={props.resetState}
                         toggle={toggle}
                         newItem={props.newItem}

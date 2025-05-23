@@ -67,6 +67,7 @@ const HomeContractors = (props) => {
     const refetchData = () => {
         refetch()
     }
+
     if (error) return (
         error.status == 403 ?
             <Informer
@@ -81,6 +82,7 @@ const HomeContractors = (props) => {
                 title="Ошибка!"
                 label={error.message} />
     )
+    
     if (loading) return <Loader size="m" />
 
     return (

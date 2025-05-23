@@ -25,11 +25,17 @@ const AppFormContractors = (props) => {
     const [projects, setProjects] = useState({})
     const [select, setSelect] = useState(props.newItem ? item.project : props.item.project.id);
     const [tab, setTab] = useState(tabItems[0].name)
-
-    const searchPrj = "?prj_number="+item.project.prj_number
-    const search = "?contractor="+item.pk
     
-    console.log(item)
+    var searchPrj = 0
+    var search = 0
+    
+    if (!props.newItem) {
+        searchPrj = "?prj_number="+item.project.prj_number
+        search = "?contractor="+item.pk
+    }
+    
+    
+    console.log(props.item)
 
     const onChange = (e) => {
         const newState = item
@@ -54,13 +60,13 @@ const AppFormContractors = (props) => {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="project_id">Проект</Label>
+                    <Label for="project_id">Договор</Label>
                     <Select
                         // name="project_id"
                         onChange={onChangeSelect}
                         options={arr}
                         value={arr.find(prj => prj.value === select)}
-                        placeholder="Выберите проект"
+                        placeholder="Выберите договор"
                     >
                     </Select>
                 </FormGroup>
@@ -80,14 +86,14 @@ const AppFormContractors = (props) => {
                 </div>
                 </Form>
             ) 
-        } else if (tab === "Договор") {
+        } else if (tab === "Договор" && !props.newItem) {
             return (
                 <Fragment>
                     <HomeProjects search={searchPrj} />
                     <Button onClick={props.toggle} color="secondary" outline> Закрыть </Button>
                 </Fragment>
             )
-        } else if (tab === "Акты") {
+        } else if (tab === "Акты" && !props.newItem) {
             return (
                 <Fragment>
                     <HomeActsContr search={search} />
@@ -156,7 +162,7 @@ const AppFormContractors = (props) => {
     const arr = []
 
     for (let i = 0; i < projects.length; i++) {
-        arr.push({value: projects[i].pk, label: projects[i].title})
+        arr.push({value: projects[i].pk, label: projects[i].prj_number})
     }
 
     return (
