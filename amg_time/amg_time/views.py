@@ -531,6 +531,13 @@ def projects_list_select(request):
 Generic views for filtering
 """
 
+@authentication_classes([JWTAuthentication])
+@permission_classes([AdminOnly])
+class ProjectList(generics.ListAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectListSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["prj_number"]
 
 @authentication_classes([JWTAuthentication])
 @permission_classes([AdminOnly])
@@ -548,6 +555,15 @@ class ContractorsList(generics.ListAPIView):
     serializer_class = ContractorsListSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["project_id"]
+
+
+@authentication_classes([JWTAuthentication])
+@permission_classes([AdminOnly])
+class ActContractorList(generics.ListAPIView):
+    queryset = ActContractor.objects.all()
+    serializer_class = ActsContrListSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["contractor"]
 
 
 @authentication_classes([JWTAuthentication])
