@@ -34,9 +34,6 @@ const AppFormProjects = (props) => {
     const [check, setCheck] = useState(props.newItem ? item.is_archived : props.is_archived)
     const [tab, setTab] = useState(tabItems[0].name)
 
-    console.log(item);
-    
-
     const search = "?project_id="+item.pk
 
     const onChange = (e) => {
