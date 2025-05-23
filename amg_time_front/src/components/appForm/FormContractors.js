@@ -1,20 +1,100 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Button, Form, FormGroup, FormText, Input, Label } from "reactstrap";
 import axios from "axios";
 import Select from 'react-select';
+import { Tabs } from "@consta/uikit/Tabs";
 import { API_URL_I } from "../../index";
+import HomeProjects from "../appHome/HomeProjects";
+import HomeActsContr from "../appHome/HomeActsContr";
+
+const tabItems = [
+    {
+        name: "Подрядчик"
+    },
+    {
+        name: "Договор"
+    },
+    {
+        name: "Акты"
+    }
+]
 
 const AppFormContractors = (props) => {
     const API_URL = props.newItem ? API_URL_I + "contractors/" : API_URL_I + "contractors_d/"
-    const [item, setItem] = useState({})
+    const [item, setItem] = useState(props.item)
     const [projects, setProjects] = useState({})
     const [select, setSelect] = useState(props.newItem ? item.project : props.item.project.id);
+    const [tab, setTab] = useState(tabItems[0].name)
+
+    const searchPrj = "?prj_number="+item.project.prj_number
+    const search = "?contractor="+item.pk
+    
+    console.log(item)
 
     const onChange = (e) => {
         const newState = item
         newState[e.target.name] = e.target.value
         setItem(newState)
 
+    }
+
+    const handleTabChange = (tab) => {
+        if (tab === "Подрядчик") {
+            return (
+                <Form onSubmit={props.newItem ? submitDataAdd : submitDataEdit}>
+                <FormGroup>
+                    <Label for="title">Наименование</Label>
+                    <Input
+                        type="text"
+                        name="title"
+                        placeholder="ИП Иванов"
+                        onChange={onChange}
+                        defaultValue={defaultIfEmpty(item.title)}
+                        required
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="project_id">Проект</Label>
+                    <Select
+                        // name="project_id"
+                        onChange={onChangeSelect}
+                        options={arr}
+                        value={arr.find(prj => prj.value === select)}
+                        placeholder="Выберите проект"
+                    >
+                    </Select>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="price">Сумма</Label>
+                    <Input
+                        type="number"
+                        name="price"
+                        onChange={onChange}
+                        defaultValue={defaultIfEmpty(item.price)}
+                        required
+                    />
+                </FormGroup>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <Button color="primary" type="submit" > Сохранить </Button>
+                    <Button onClick={props.toggle} color="secondary" outline> Отмена </Button>
+                </div>
+                </Form>
+            ) 
+        } else if (tab === "Договор") {
+            return (
+                <Fragment>
+                    <HomeProjects search={searchPrj} />
+                    <Button onClick={props.toggle} color="secondary" outline> Закрыть </Button>
+                </Fragment>
+            )
+        } else if (tab === "Акты") {
+            return (
+                <Fragment>
+                    <HomeActsContr search={search} />
+                    <Button onClick={props.toggle} color="secondary" outline> Закрыть </Button>
+                </Fragment>
+            )
+        }
     }
 
     const onChangeSelect = (e) => {
@@ -80,44 +160,23 @@ const AppFormContractors = (props) => {
     }
 
     return (
-        <Form onSubmit={props.newItem ? submitDataAdd : submitDataEdit}>
-            <FormGroup>
-                <Label for="title">Наименование</Label>
-                <Input
-                    type="text"
-                    name="title"
-                    placeholder="ИП Иванов"
-                    onChange={onChange}
-                    defaultValue={defaultIfEmpty(item.title)}
-                    required
+        <Fragment>
+                <Tabs
+                    value={tab}
+                    size="m"
+                    view="bordered"
+                    linePosition="bottom"
+                    fitMode="scroll"
+                    onChange={(tab) => setTab(tab.name)}
+                    items={tabItems}
+                    getItemLabel={(tab) => tab.name}
+                    style={{
+                        position:"sticky"
+                    }}
                 />
-            </FormGroup>
-            <FormGroup>
-                <Label for="project_id">Проект</Label>
-                <Select
-                    // name="project_id"
-                    onChange={onChangeSelect}
-                    options={arr}
-                    value={arr.find(prj => prj.value === select)}
-                    placeholder="Выберите проект"
-                >
-                </Select>
-            </FormGroup>
-            <FormGroup>
-                <Label for="price">Сумма</Label>
-                <Input
-                    type="number"
-                    name="price"
-                    onChange={onChange}
-                    defaultValue={defaultIfEmpty(item.price)}
-                    required
-                />
-            </FormGroup>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Button color="primary" type="submit" > Сохранить </Button>
-                <Button onClick={props.toggle} color="secondary" outline> Отмена </Button>
-            </div>
-        </Form>
+                {handleTabChange(tab)}
+                
+        </Fragment>        
     )
 }
 

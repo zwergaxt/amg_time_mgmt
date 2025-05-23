@@ -13,7 +13,11 @@ import { useState } from "react";
 const HomeProjects = (props) => {
     const [len, setLen] = useState("?len=10")
 
-    const API_URL = API_URL_I + "projects/" + len
+    var API_URL = API_URL_I + "projects/" + len
+
+    if (props.search !== undefined) {
+        API_URL = API_URL_I + "projects_gen" + props.search
+    }
 
     axios.interceptors.request.use(
         async (config) => {
