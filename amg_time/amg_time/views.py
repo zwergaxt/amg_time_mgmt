@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from rest_framework import filters
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django_filters.rest_framework import DjangoFilterBackend
@@ -536,15 +537,16 @@ Generic views for filtering
 class ProjectList(generics.ListAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectListSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["prj_number"]
+    search_fields = ["prj_number", "title"]
 
 @authentication_classes([JWTAuthentication])
 @permission_classes([AdminOnly])
 class ActsList(generics.ListAPIView):
     queryset = Act.objects.all()
     serializer_class = ActsListSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["project_id"]
 
 
@@ -553,7 +555,7 @@ class ActsList(generics.ListAPIView):
 class ContractorsList(generics.ListAPIView):
     queryset = Contractor.objects.all()
     serializer_class = ContractorsListSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["project_id"]
 
 
@@ -562,7 +564,7 @@ class ContractorsList(generics.ListAPIView):
 class ActContractorList(generics.ListAPIView):
     queryset = ActContractor.objects.all()
     serializer_class = ActsContrListSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["contractor"]
 
 
@@ -571,7 +573,7 @@ class ActContractorList(generics.ListAPIView):
 class InvoicesList(generics.ListAPIView):
     queryset = Invoice.objects.all()
     serializer_class = InvoicesListSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["project_id"]
 
 
@@ -580,5 +582,5 @@ class InvoicesList(generics.ListAPIView):
 class AgreementsList(generics.ListAPIView):
     queryset = Agreement.objects.all()
     serializer_class = AgreementsListSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["project_id"]
