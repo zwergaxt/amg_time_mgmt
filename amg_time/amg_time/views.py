@@ -539,7 +539,7 @@ class ProjectList(generics.ListAPIView):
     serializer_class = ProjectListSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["prj_number"]
-    search_fields = ["prj_number", "title"]
+    search_fields = ["prj_number", "title", "is_archived"]
 
 @authentication_classes([JWTAuthentication])
 @permission_classes([AdminOnly])
