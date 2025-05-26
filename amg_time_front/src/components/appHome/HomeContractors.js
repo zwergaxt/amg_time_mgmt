@@ -5,6 +5,7 @@ import { Loader } from '@consta/uikit/Loader';
 import { Informer } from '@consta/uikit/Informer';
 import AppListContractors from "../appList/ListContractors";
 import AppModalContractors from "../appModal/ModalContractors";
+import SearchFilter from "./SearchFilter";
 import Selector from "./LenSelector";
 import { API_URL_I } from "../../index";
 import useAxios from "axios-hooks";
@@ -12,11 +13,14 @@ import axios from "axios";
 
 const HomeContractors = (props) => {
     const [len, setLen] = useState("?len=10")
+    const [val, setVal] = useState("")
 
     var API_URL = API_URL_I + "contractors/" + len
 
     if (props.search !== undefined) {
         API_URL = API_URL_I + "contractors_gen" + props.search
+    } else if (val) {
+        API_URL = API_URL_I + "contractors_gen" + "?search=" + val
     }
 
     axios.interceptors.request.use(
@@ -99,6 +103,13 @@ const HomeContractors = (props) => {
                     offset: 0
                 }}>
                     <Selector len={len} setLen={setLen} />
+                </Col>
+                <Col xs={{
+                    size: 'auto',
+                    order: 3,
+                    offset: 0
+                }}>
+                    <SearchFilter value={val} setVal={setVal} />
                 </Col>
             </Row>
             <Row xs="2">

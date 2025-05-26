@@ -5,6 +5,7 @@ import { Loader } from '@consta/uikit/Loader';
 import AppListActsContr from "../appList/ListActsContr";
 import { Informer } from '@consta/uikit/Informer';
 import AppModalActsContr from "../appModal/ModalActsContr";
+import SearchFilter from "./SearchFilter";
 import Selector from "./LenSelector";
 import { API_URL_I } from "../../index";
 import useAxios from "axios-hooks";
@@ -12,11 +13,14 @@ import axios from "axios";
 
 const HomeActsContr = (props) => {
     const [len, setLen] = useState("?len=10")
+    const [val, setVal] = useState("")
 
     var API_URL = API_URL_I + "acts_contr/" + len
 
     if (props.search !== undefined) {
         API_URL = API_URL_I + "actscontr_gen" + props.search
+    } else if (val) {
+        API_URL = API_URL_I + "actscontr_gen" + "?search=" + val
     }
 
     axios.interceptors.request.use(
@@ -102,6 +106,13 @@ const HomeActsContr = (props) => {
                     offset: 0
                 }}>
                     <Selector len={len} setLen={setLen} />
+                </Col>
+                <Col xs={{
+                    size: 'auto',
+                    order: 3,
+                    offset: 0
+                }}>
+                    <SearchFilter value={val} setVal={setVal} />
                 </Col>
             </Row>
             <Row xs="2">

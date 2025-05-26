@@ -548,6 +548,7 @@ class ActsList(generics.ListAPIView):
     serializer_class = ActsListSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["project_id"]
+    search_fields = ["is_paid", "act_number"]
 
 
 @authentication_classes([JWTAuthentication])
@@ -557,6 +558,7 @@ class ContractorsList(generics.ListAPIView):
     serializer_class = ContractorsListSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["project_id"]
+    search_fields = ["title", "diplay_name"]
 
 
 @authentication_classes([JWTAuthentication])
@@ -566,6 +568,7 @@ class ActContractorList(generics.ListAPIView):
     serializer_class = ActsContrListSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["contractor"]
+    search_fields = ["is_paid", "act_number"]
 
 
 @authentication_classes([JWTAuthentication])
@@ -575,6 +578,7 @@ class InvoicesList(generics.ListAPIView):
     serializer_class = InvoicesListSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["project_id"]
+    search_fields = ["inv_number"]
 
 
 @authentication_classes([JWTAuthentication])
@@ -584,3 +588,4 @@ class AgreementsList(generics.ListAPIView):
     serializer_class = AgreementsListSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["project_id"]
+    search_fields = ["agr_number"]
