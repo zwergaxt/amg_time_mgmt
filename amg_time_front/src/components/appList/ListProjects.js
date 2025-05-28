@@ -13,7 +13,7 @@ const AppListProjects = (props) => {
         <Table hover className="fixed-header">
             <thead>
                 <tr>
-                    <th>{textStyleHeader("Номер проекта")}</th>
+                    <th>{textStyleHeader("Номер договора")}</th>
                     <th>{textStyleHeader("Наименование")}</th>
                     <th>{textStyleHeader("Заказчик")}</th>
                     <th>{textStyleHeader("Архив")}</th>

@@ -119,7 +119,7 @@ const AppFormActs = (props) => {
                     onChange={onChangeSelect}
                     options={arr}
                     value={arr.find(prj => prj.value === select)}
-                    placeholder="Выберите проект"
+                    placeholder="Выберите договор"
                 >
                 </Select>
             </FormGroup>
