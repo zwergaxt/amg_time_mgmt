@@ -80,14 +80,13 @@ const AppFormProjects = (props) => {
                     </Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="prj_number">Номер проекта</Label>
+                    <Label for="prj_number">Номер договора</Label>
                     <Input
                         type="text"
                         name="prj_number"
                         onChange={onChange}
                         defaultValue={defaultIfEmpty(item.prj_number)}
                     />
-                    <FormText>Номер по договору</FormText>
                 </FormGroup>
                 <FormGroup>
                     <Label for="date">Дата</Label>
