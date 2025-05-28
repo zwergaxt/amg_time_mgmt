@@ -22,6 +22,7 @@ const SearchFilter = (props) => {
             <Button
                 onClick={() => handleChange(val)}
                 size="sm"
+                style={{"z-index": "0"}}
                 className="mb-3"
             > Поиск </Button>
         </InputGroup>
